@@ -1,0 +1,30 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="com.example.user.testab.Amis">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:padding="10dp"
+        android:text="@string/action_amis"
+        android:background="#048B9A"
+        android:textColor="#fff"
+        android:textSize="20px"
+        />
+    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/gridView1"
+        android:layout_marginTop="40dp"
+        android:layout_below="@id/button"
+        android:gravity="center"
+        android:columnWidth="100dp"
+        android:clickable="false"
+        android:stretchMode="columnWidth"
+        android:numColumns="3"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#fff"
+        android:layout_gravity="center"
+       />
+
+</FrameLayout>

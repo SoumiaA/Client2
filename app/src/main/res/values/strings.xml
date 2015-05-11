@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">TestAB</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_file">File d actualites</string>
+    <string name="action_msg">Messages</string>
+    <string name="action_notif">Notifications</string>
+    <string name="action_profil">Profil</string>
+    <string name="action_amis">Suivis</string>
+    <string name="action_rech">Recherche</string>
+    <string name="action_param">Parametres</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_messages">Messages</string>
+
+</resources>

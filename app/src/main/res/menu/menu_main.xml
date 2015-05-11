@@ -1,0 +1,47 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_file"
+        android:icon="@drawable/file2"
+        app:showAsAction="always"
+        android:title="@string/action_file"/>
+    <item
+        android:id="@+id/action_msg"
+        android:icon="@drawable/msg2"
+        app:showAsAction="always"
+        android:title="@string/action_msg"/>
+    <item
+        android:id="@+id/action_amis"
+        android:icon="@drawable/amis2"
+        app:showAsAction="always"
+        android:title="@string/action_amis"/>
+    <item
+        android:id="@+id/action_profil"
+        android:icon="@drawable/profil2"
+        app:showAsAction="always"
+        android:title="@string/action_profil"/>
+    <item
+        android:id="@+id/action_notif"
+        android:icon="@drawable/notif2"
+        app:showAsAction="always"
+        android:title="@string/action_notif"/>
+    <item
+        android:id="@+id/action_rech"
+        android:icon="@drawable/rech2"
+        app:showAsAction="always"
+        android:title="@string/action_rech"/>
+    <item
+        android:id="@+id/action_param"
+        android:icon="@drawable/param"
+        app:showAsAction="always"
+        android:title="@string/action_param"/>
+
+</menu>
