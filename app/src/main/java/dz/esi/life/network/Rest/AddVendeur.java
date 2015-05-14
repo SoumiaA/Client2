@@ -3,28 +3,28 @@ package dz.esi.life.network.Rest;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import dz.service.delivery.Models.Vendeur;
-import dz.service.delivery.network.RestClient;
+import dz.esi.life.Model.Contenu;
+import dz.esi.life.network.RestClient;
+
 
 /**
  * Created by MEFTAH on 29/04/2015.
  */
-public class AddVendeur extends AsyncTask<String, Vendeur,Vendeur> {
+public class AddVendeur extends AsyncTask<String, Contenu, Contenu> {
 
         private Exception exception;
-        Vendeur vendeur;
+    Contenu contenu;
 
-        protected Vendeur doInBackground(String... urls) {
+    protected Contenu doInBackground(String... urls) {
             try {
-                 vendeur = RestClient.get().ajouter(new Vendeur("Mohamed","hello photo"));
-                Log.d("vendeur", vendeur.name + vendeur.photo);
+                // contenu = RestClient.get().ajouter(new Contenu("Mohamed","hello photo"));
 
             } catch (Exception e) {
                 this.exception = e;
                 Log.e("exception", e.getMessage());
                 return null;
             }
-            return vendeur;
+        return contenu;
         }
 
         protected void onPostExecute(String chaine) {

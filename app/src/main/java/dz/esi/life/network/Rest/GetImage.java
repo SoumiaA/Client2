@@ -5,32 +5,33 @@ import android.util.Log;
 
 import java.util.List;
 
-import dz.service.delivery.Models.Vendeur;
-import dz.service.delivery.network.RestClient;
+import dz.esi.life.Model.Contenu;
+import dz.esi.life.Model.PubImag;
+import dz.esi.life.network.RestClient;
+
 
 /**
  * Created by MEFTAH on 29/04/2015.
  */
-public class ListVendeur extends AsyncTask<String, List<Vendeur>, List<Vendeur>> {
+public class GetImage extends AsyncTask<Void, Void, List<PubImag>> {
 
         private Exception exception;
-        public List<Vendeur> list;
-        protected List<Vendeur> doInBackground(String... urls) {
+    List<PubImag> list;
 
+    protected List<PubImag> doInBackground(Void... urls) {
             try {
-                list = RestClient.get().vendeurs();
+                list = RestClient.get().images();
+
             } catch (Exception e) {
-                this.exception = e;
                 Log.e("exception", e.getMessage());
                 return null;
             }
             return list;
         }
 
-        protected void onPostExecute(List<Vendeur> vendeurs) {
+    protected void onPostExecute(String chaine) {
             // TODO: check this.exception
             // TODO: do something with the feed
-            vendeurs = this.list;
         }
 
 }

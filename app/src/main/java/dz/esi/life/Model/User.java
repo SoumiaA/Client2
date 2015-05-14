@@ -26,4 +26,12 @@ public class User {
     public List<Affectation> affectations;
     public PubImag pubImag;
 
+    public User(String user, String pass) {
+        this.username = user;
+        this.password = pass;
+    }
+
+    public User() {
+
+    }
 }

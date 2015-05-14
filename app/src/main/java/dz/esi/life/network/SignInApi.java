@@ -17,9 +17,9 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 
-import dz.service.delivery.DataSaver;
-import dz.service.delivery.MainActivity;
-import dz.service.delivery.Models.Utilisateur;
+import dz.esi.life.MainActivity;
+import dz.esi.life.Model.User;
+
 
 /**
  * Created by MEFTAH on 30/04/2015.
@@ -136,7 +136,7 @@ public class SignInApi implements GoogleApiClient.ConnectionCallbacks, GoogleApi
             String email = Plus.AccountApi.getAccountName(mGoogleApiClient);
             Toast.makeText(activity, "User: " + personName + ", email: " + email + ", id: " + personGooglePlusProfile, Toast.LENGTH_LONG).show();
             Log.d(TAG, personName);
-            Utilisateur utilisateur = new Utilisateur();
+            User utilisateur = new User();
             utilisateur.username = currentPerson.hasNickname() ?currentPerson.getNickname():"";
             utilisateur.firstName = currentPerson.hasName() ?currentPerson.getName().hasFamilyName()
                     ?currentPerson.getName().getFamilyName():"":"";
@@ -144,12 +144,9 @@ public class SignInApi implements GoogleApiClient.ConnectionCallbacks, GoogleApi
                     ?currentPerson.getName().getGivenName():"":"";
             utilisateur.displayName = currentPerson.hasDisplayName() ? currentPerson.getDisplayName():"";
             utilisateur.email = email;
-            utilisateur.address = currentPerson.hasCurrentLocation() ?currentPerson.getCurrentLocation():"";
             utilisateur.sexe = currentPerson.hasGender() ? String.valueOf(currentPerson.getGender()):"0";
-            utilisateur.photo = currentPerson.hasImage() ?currentPerson.getImage().toString():"";
             utilisateur.age = currentPerson.hasAgeRange() ?currentPerson.getAgeRange().hasMin()
                     ? String.valueOf(currentPerson.getAgeRange().getMin()):"":"";
-            DataSaver.utilisateur = utilisateur;
 
             Toast.makeText(activity, "Connecté", Toast.LENGTH_SHORT).show();
 

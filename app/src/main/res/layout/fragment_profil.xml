@@ -21,23 +21,43 @@
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
+            android:layout_height="wrap_content"
             android:padding="6dip"
             android:layout_gravity="center_horizontal|bottom"
-
-            android:layout_marginTop="142dp"
             android:layout_below="@+id/textView2"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true">
 
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/description_photo"
+                android:layout_gravity="center"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Description"
+                android:layout_below="@id/description_photo"
                 android:id="@+id/InfosUser"
                 android:layout_gravity="center"
-                android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ajouter une Image"
+                android:layout_toRightOf="@id/InfosUser"
+                android:layout_below="@id/InfosUser"
+                android:id="@+id/capter_profile" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/photo_profile"
+                android:scaleType="fitXY"
+                android:layout_below="@id/capter_profile" />
         </RelativeLayout>
 
     </RelativeLayout>

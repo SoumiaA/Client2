@@ -4,6 +4,7 @@ package dz.esi.life.network;
 import java.util.List;
 
 import dz.esi.life.Model.Contenu;
+import dz.esi.life.Model.PubImag;
 import dz.esi.life.Model.User;
 import retrofit.http.Body;
 import retrofit.http.GET;
@@ -20,6 +21,13 @@ public interface Restapi {
 
     @GET("/contenus")
     List<Contenu> Contenu();
+
+
+    @GET("/pub-imags")
+    List<PubImag> images();
+
+    @POST("/pub-imags")
+    PubImag PubImag_publier(@Body PubImag pubImag);
 
 
     @POST("/Contenus")

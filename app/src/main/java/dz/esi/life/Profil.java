@@ -1,8 +1,15 @@
 package dz.esi.life;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +18,21 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+import dz.esi.life.Model.PubImag;
+import dz.esi.life.network.Rest.GetImage;
+import dz.esi.life.network.Rest.SignIn;
 
 
 /**
@@ -21,7 +43,14 @@ import android.view.ViewGroup;
  * Use the {@link Profil#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Profil extends Fragment {
+public class Profil extends Fragment implements View.OnClickListener {
+
+    // Activity result key for camera
+    static final int REQUEST_TAKE_PHOTO = 11111;
+
+    // Image view for showing our image.
+    private ImageView mImageView;
+    private EditText mEditText;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -70,6 +99,23 @@ public class Profil extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView =inflater.inflate(R.layout.fragment_profil, container, false);
+        mImageView = (ImageView) rootView.findViewById(R.id.photo_profile);
+        mEditText = (EditText) rootView.findViewById(R.id.description_photo);
+        Button button = (Button) rootView.findViewById(R.id.capter_profile);
+        button.setOnClickListener(this);
+       /* try {
+            new SignIn().execute().get();
+            List<PubImag> imagList = new GetImage().execute().get();
+            mImageView.setImageBitmap(imagList.get(0).getImage());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+        }*/
+
+
         return rootView;
     }
 
@@ -110,6 +156,164 @@ public class Profil extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
+    }
+
+
+    /**
+     * Start the camera by dispatching a camera intent.
+     */
+    protected void dispatchTakePictureIntent() {
+
+        // Check if there is a camera.
+        Context context = getActivity();
+        PackageManager packageManager = context.getPackageManager();
+        if (packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA) == false) {
+            Toast.makeText(getActivity(), "This device does not have a camera.", Toast.LENGTH_SHORT)
+                    .show();
+            return;
+        }
+
+        // Camera exists? Then proceed...
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        // Ensure that there's a camera activity to handle the intent
+        MainActivity2 activity = (MainActivity2) getActivity();
+        if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
+            // Create the File where the photo should go.
+            // If you don't do this, you may get a crash in some devices.
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                // Error occurred while creating the File
+                Toast toast = Toast.makeText(activity, "There was a problem saving the photo...", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri fileUri = Uri.fromFile(photoFile);
+                activity.setCapturedImageURI(fileUri);
+                activity.setCurrentPhotoPath(fileUri.getPath());
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+                        activity.getCapturedImageURI());
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+            }
+        }
+    }
+
+    /**
+     * The activity returns with the photo.
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK) {
+            addPhotoToGallery();
+            MainActivity2 activity = (MainActivity2) getActivity();
+
+            // Show the full sized image.
+            Bitmap bitmap = setFullImageFromFilePath(activity.getCurrentPhotoPath(), mImageView);
+            try {
+                new SignIn().execute().get();
+                PubImag pubImag = new PubImag();
+                pubImag.setImage(bitmap);
+                pubImag.setComment(mEditText.getText().toString());
+                pubImag = pubImag.publie();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            Toast.makeText(getActivity(), "Image Capture Failed", Toast.LENGTH_SHORT)
+                    .show();
+        }
+    }
+
+    /**
+     * Creates the image file to which the image must be saved.
+     *
+     * @return
+     * @throws IOException
+     */
+    protected File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        MainActivity2 activity = (MainActivity2) getActivity();
+        activity.setCurrentPhotoPath("file:" + image.getAbsolutePath());
+        return image;
+    }
+
+    /**
+     * Add the picture to the photo gallery.
+     * Must be called on all camera images or they will
+     * disappear once taken.
+     */
+    protected void addPhotoToGallery() {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        MainActivity2 activity = (MainActivity2) getActivity();
+        File f = new File(activity.getCurrentPhotoPath());
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        this.getActivity().sendBroadcast(mediaScanIntent);
+    }
+
+    /**
+     * Deal with button clicks.
+     *
+     * @param v
+     */
+    @Override
+    public void onClick(View v) {
+        dispatchTakePictureIntent();
+    }
+
+    /**
+     * Scale the photo down and fit it to our image views.
+     * <p/>
+     * "Drastically increases performance" to set images using this technique.
+     * Read more:http://developer.android.com/training/camera/photobasics.html
+     */
+    private Bitmap setFullImageFromFilePath(String imagePath, ImageView imageView) {
+        // Get the dimensions of the View
+        int targetW = imageView.getWidth();
+        int targetH = imageView.getHeight();
+
+        // Get the dimensions of the bitmap
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(imagePath, bmOptions);
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+        // Determine how much to scale down the image
+        //int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+
+        // Decode the image file into a Bitmap sized to fill the View
+        bmOptions.inJustDecodeBounds = false;
+        //bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inPurgeable = true;
+
+        Bitmap bitmap = BitmapFactory.decodeFile(imagePath, bmOptions);
+        imageView.setImageBitmap(bitmap);
+        return bitmap;
     }
 
 }

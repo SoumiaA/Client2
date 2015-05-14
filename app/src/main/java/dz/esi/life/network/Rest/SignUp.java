@@ -3,28 +3,28 @@ package dz.esi.life.network.Rest;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import dz.service.delivery.Models.Utilisateur;
-import dz.service.delivery.network.RestClient;
+import dz.esi.life.Model.User;
+import dz.esi.life.network.RestClient;
+
 
 /**
  * Created by MEFTAH on 29/04/2015.
  */
-public class SignUp extends AsyncTask<String, Utilisateur, Utilisateur> {
+public class SignUp extends AsyncTask<String, User, User> {
 
         private Exception exception;
-        public Utilisateur utilisateur;
-        protected Utilisateur doInBackground(String... urls) {
+    public User utilisateur;
+
+    protected User doInBackground(String... urls) {
 
             try {
-                utilisateur = new Utilisateur();
+                utilisateur = new User();
                 utilisateur.email="guemar93@gmail.com";
-                utilisateur.photo="hello photo";
                 utilisateur.lastName="Lakhdar";
                 utilisateur.firstName="Meftah";
                 utilisateur.sexe="0";
-                utilisateur.address="Bouraoui";
                 utilisateur.password="Hello93";
-                utilisateur.type="Utilisateur";
+                utilisateur.type = "User";
                 utilisateur.username = "Meftah93";
                 utilisateur = RestClient.get().singUp(utilisateur);
                 Log.d("Retrofit", utilisateur.displayName);
@@ -37,7 +37,7 @@ public class SignUp extends AsyncTask<String, Utilisateur, Utilisateur> {
             return utilisateur;
         }
 
-        protected void onPostExecute(Utilisateur utilisateur) {
+    protected void onPostExecute(User utilisateur) {
             // TODO: check this.exception
             // TODO: do something with the feed
             this.utilisateur = utilisateur;

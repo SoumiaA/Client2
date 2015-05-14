@@ -3,17 +3,19 @@ package dz.esi.life.network.Rest;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import dz.service.delivery.Models.Utilisateur;
-import dz.service.delivery.network.RestClient;
+import dz.esi.life.Model.User;
+import dz.esi.life.network.RestClient;
+
 
 /**
  * Created by MEFTAH on 29/04/2015.
  */
-public class SignOut extends AsyncTask<String, Utilisateur, Utilisateur> {
+public class SignOut extends AsyncTask<String, User, User> {
 
         private Exception exception;
-        Utilisateur utilisateur;
-        protected Utilisateur doInBackground(String... urls) {
+    User utilisateur;
+
+    protected User doInBackground(String... urls) {
             try {
                RestClient.get().signOut();
             } catch (Exception e) {
@@ -24,7 +26,7 @@ public class SignOut extends AsyncTask<String, Utilisateur, Utilisateur> {
             return utilisateur;
         }
 
-        protected void onPostExecute(Utilisateur utilisateur) {
+    protected void onPostExecute(User utilisateur) {
             // TODO: check this.exception
             // TODO: do something with the feed
             utilisateur = this.utilisateur;

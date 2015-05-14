@@ -8,7 +8,7 @@ import java.util.List;
 public class Offre {
     public String entreprise;
     public String poste;
-    public String durée;
+    public String duree;
     public List<String> competences;
     public List<String> documents;
 }
