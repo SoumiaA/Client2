@@ -6,23 +6,25 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
-import android.os.Bundle;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.widget.TextView;
+
+import java.util.List;
+
+import dz.esi.life.Model.Contenu;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Messages1.OnFragmentInteractionListener} interface
+ * {@link Messages.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Messages1#newInstance} factory method to
+ * Use the {@link Messages#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Messages1 extends Fragment {
+public class Messages extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -43,8 +45,8 @@ public class Messages1 extends Fragment {
      * @return A new instance of fragment Messages.
      */
     // TODO: Rename and change types and number of parameters
-    public static Messages1 newInstance(String param1, String param2) {
-        Messages1 fragment = new Messages1();
+    public static Messages newInstance(String param1, String param2) {
+        Messages fragment = new Messages();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -52,7 +54,7 @@ public class Messages1 extends Fragment {
         return fragment;
     }
 
-    public Messages1() {
+    public Messages() {
         // Required empty public constructor
     }
 
@@ -70,13 +72,28 @@ public class Messages1 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v= inflater.inflate(R.layout.fragment_messages, container, false);
-
+        final TextView contenuText = (TextView) v.findViewById(R.id.contenu);
+        Button publier = (Button) v.findViewById(R.id.publier);
+        publier.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Contenu contenu = new Contenu();
+                contenu.texte = contenuText.getText().toString();
+                contenu.post();
+            }
+        });
+        List<Contenu> list = Contenu.get();
         ListView l = (ListView)v.findViewById(R.id.listviewmsg);
         // list.setVisibility(View.INVISIBLE);
-        String[] values = new String[] { "Meftah : Salut !", "Ada Hanifi : Take care Bro !", "Bourabaa redaa : where are you ? are you here",
+        String[] values = new String[list.size()];
+        /*values= new String[] { "Meftah : Salut !", "Ada Hanifi : Take care Bro !", "Bourabaa redaa : where are you ? are you here",
                 "Flag : wow!!!", "Said : Salem ", "Soumia Alem : il fait chaud aujourd hui",
                 "Michel bound : cc !", "Diego Delaviga : eh té là ? ","Mostfai : salam 3alaykom" ,"Obama : what a great day man !"};
-
+*/
+        for (int i = 0; i < list.size(); i++) {
+            Contenu c = list.get(i);
+            values[i] = c.user.displayName + " : " + c.texte + ", le: " + c.created;
+        }
         //Infos User
 
         //GetUtilisateur user = new GetUtilisateur(infos,getApplicationContext());

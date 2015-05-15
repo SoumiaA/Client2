@@ -1,6 +1,7 @@
 package dz.esi.life;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,11 +14,6 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Bundle;
-import android.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -27,12 +23,8 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import dz.esi.life.Model.PubImag;
-import dz.esi.life.network.Rest.GetImage;
-import dz.esi.life.network.Rest.SignIn;
 
 
 /**
@@ -177,7 +169,7 @@ public class Profil extends Fragment implements View.OnClickListener {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         // Ensure that there's a camera activity to handle the intent
-        MainActivity2 activity = (MainActivity2) getActivity();
+        MainActivity activity = (MainActivity) getActivity();
         if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
             // Create the File where the photo should go.
             // If you don't do this, you may get a crash in some devices.
@@ -213,20 +205,15 @@ public class Profil extends Fragment implements View.OnClickListener {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK) {
             addPhotoToGallery();
-            MainActivity2 activity = (MainActivity2) getActivity();
+            MainActivity activity = (MainActivity) getActivity();
 
             // Show the full sized image.
             Bitmap bitmap = setFullImageFromFilePath(activity.getCurrentPhotoPath(), mImageView);
             try {
-                new SignIn().execute().get();
                 PubImag pubImag = new PubImag();
                 pubImag.setImage(bitmap);
                 pubImag.setComment(mEditText.getText().toString());
                 pubImag = pubImag.publie();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -256,7 +243,7 @@ public class Profil extends Fragment implements View.OnClickListener {
         );
 
         // Save a file: path for use with ACTION_VIEW intents
-        MainActivity2 activity = (MainActivity2) getActivity();
+        MainActivity activity = (MainActivity) getActivity();
         activity.setCurrentPhotoPath("file:" + image.getAbsolutePath());
         return image;
     }
@@ -268,7 +255,7 @@ public class Profil extends Fragment implements View.OnClickListener {
      */
     protected void addPhotoToGallery() {
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        MainActivity2 activity = (MainActivity2) getActivity();
+        MainActivity activity = (MainActivity) getActivity();
         File f = new File(activity.getCurrentPhotoPath());
         Uri contentUri = Uri.fromFile(f);
         mediaScanIntent.setData(contentUri);

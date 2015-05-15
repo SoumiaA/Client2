@@ -1,8 +1,24 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="com.example.user.testab.Messages1">
 
-    <!-- TODO: Update blank fragment layout -->
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/publier"
+        android:text="Publier"
+        android:layout_alignParentRight="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:padding="10dp"
+        android:id="@+id/contenu"
+        android:textSize="20px"
+        android:hint="status"
+        android:layout_toLeftOf="@id/publier"
+        android:layout_alignParentTop="true" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -11,11 +27,14 @@
         android:background="#048B9A"
         android:textColor="#fff"
         android:textSize="20px"
+        android:layout_below="@id/contenu"
+        android:id="@+id/msg_text"
         />
-    <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <ListView
         android:id="@+id/listviewmsg"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"/>
+        android:layout_below="@id/msg_text"
+        android:layout_height="wrap_content" />
 
-</FrameLayout>
+</RelativeLayout>

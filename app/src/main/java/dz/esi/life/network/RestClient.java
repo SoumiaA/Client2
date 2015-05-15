@@ -16,7 +16,7 @@ import retrofit.client.OkClient;
 public class RestClient {
 
     private static Restapi REST_CLIENT;
-    private static String ROOT = "https://frozen-peak-9792.herokuapp.com";
+    public static String ROOT = "https://frozen-peak-9792.herokuapp.com";
 
 
     static {
