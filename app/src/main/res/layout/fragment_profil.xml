@@ -1,6 +1,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="com.example.user.testab.Profil">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.user.testab.Profil">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -10,54 +12,135 @@
         android:layout_gravity="center_horizontal|top">
 
         <TextView
+            android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:background="#048B9A"
             android:padding="10dp"
             android:text="@string/action_profil"
-            android:background="#048B9A"
             android:textColor="#fff"
-            android:textSize="20px"
-            android:id="@+id/textView2" />
+            android:textSize="20px" />
+
+        <LinearLayout
+            android:id="@+id/lnprofil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_weight="0"
+                android:background="@drawable/guy" />
+
+            <TextView
+                android:id="@+id/firstLine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="Pablo Picaso"
+                android:textSize="16sp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linpub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="130dp"
+            android:orientation="horizontal"
+
+            >
+
+            <ImageView
+                android:id="@+id/statut"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:padding="15dp"
+                android:src="@drawable/status" />
+
+            <ImageView
+                android:id="@+id/ajouterimg"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:padding="15dp"
+                android:src="@drawable/ajouterimg" />
+
+            <ImageView
+                android:id="@+id/cam"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:padding="15dp"
+                android:src="@drawable/cam" />
+
+            <ImageView
+                android:id="@+id/video"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:padding="15dp"
+                android:src="@drawable/video" />
+
+            <Button
+                android:id="@+id/buttonPublierProfil"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:background="#048B9A"
+                android:text="Publier"
+                android:textColor="#fff" />
+
+
+        </LinearLayout>
+
 
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:padding="6dip"
-            android:layout_gravity="center_horizontal|bottom"
-            android:layout_below="@+id/textView2"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/linpub"
+            android:layout_gravity="center_horizontal|bottom"
+            android:padding="6dip">
 
             <EditText
+                android:id="@+id/description_photo"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/description_photo"
-                android:layout_gravity="center"
                 android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center" />
+
             <TextView
+                android:id="@+id/InfosUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Description"
                 android:layout_below="@id/description_photo"
-                android:id="@+id/InfosUser"
+                android:layout_centerHorizontal="true"
                 android:layout_gravity="center"
-                android:layout_centerHorizontal="true" />
+                android:text="Description" />
 
             <Button
+                android:id="@+id/capter_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ajouter une Image"
-                android:layout_toRightOf="@id/InfosUser"
                 android:layout_below="@id/InfosUser"
-                android:id="@+id/capter_profile" />
+                android:layout_toRightOf="@id/InfosUser"
+                android:text="Ajouter une Image" />
 
             <ImageView
+                android:id="@+id/photo_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/photo_profile"
-                android:scaleType="fitXY"
-                android:layout_below="@id/capter_profile" />
+                android:layout_below="@id/capter_profile"
+                android:scaleType="fitXY" />
         </RelativeLayout>
 
     </RelativeLayout>

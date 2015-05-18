@@ -10,7 +10,6 @@ import java.io.ByteArrayOutputStream;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import dz.esi.life.R;
 import dz.esi.life.network.RestClient;
 
 /**

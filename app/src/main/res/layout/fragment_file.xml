@@ -1,28 +1,79 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="com.example.user.testab.FileAct">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/scrollbar_shape_style"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.user.testab.FileAct">
 
 
-    <TextView
+    <EditText
+        android:id="@+id/publication"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:padding="10dp"
-        android:text="@string/action_file"
-        android:background="#048B9A"
-        android:textColor="#fff"
-        android:textSize="20px"
-        />
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/statut"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:padding="15dp"
+            android:src="@drawable/status" />
+
+        <ImageView
+            android:id="@+id/ajouterimg"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:padding="15dp"
+            android:src="@drawable/ajouterimg" />
+
+        <ImageView
+            android:id="@+id/cam"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:padding="15dp"
+            android:src="@drawable/cam" />
+
+        <ImageView
+            android:id="@+id/video"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:padding="15dp"
+            android:src="@drawable/video" />
+
+        <Button
+            android:id="@+id/buttonPublier"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:background="#ff009688"
+            android:text="Publier"
+            android:textColor="#fff" />
+
+
+    </LinearLayout>
+
     <ListView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/listviewfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="80dp"
+        android:background="#ff009688"
+        android:cacheColorHint="@android:color/transparent"
         android:divider="@null"
         android:dividerHeight="10dp"
-        android:listSelector="@android:color/transparent"
-        android:cacheColorHint="@android:color/transparent"
-        android:headerDividersEnabled="true"
         android:footerDividersEnabled="true"
-        android:background="#048B9A"/>
+        android:headerDividersEnabled="true"
+        android:listSelector="@android:color/transparent" />
 
-</FrameLayout>
+</ScrollView>
+

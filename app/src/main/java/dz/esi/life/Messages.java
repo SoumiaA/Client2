@@ -1,14 +1,14 @@
 package dz.esi.life;
+
 import android.app.Activity;
+import android.app.Fragment;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
-
 import android.widget.TextView;
 
 import java.util.List;
@@ -36,6 +36,10 @@ public class Messages extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    public Messages() {
+        // Required empty public constructor
+    }
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -54,10 +58,6 @@ public class Messages extends Fragment {
         return fragment;
     }
 
-    public Messages() {
-        // Required empty public constructor
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +71,7 @@ public class Messages extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v= inflater.inflate(R.layout.fragment_messages, container, false);
+        View v = inflater.inflate(R.layout.fragment_messages, container, false);
         final TextView contenuText = (TextView) v.findViewById(R.id.contenu);
         Button publier = (Button) v.findViewById(R.id.publier);
         publier.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +83,7 @@ public class Messages extends Fragment {
             }
         });
         List<Contenu> list = Contenu.get();
-        ListView l = (ListView)v.findViewById(R.id.listviewmsg);
+        ListView l = (ListView) v.findViewById(R.id.listviewmsg);
         // list.setVisibility(View.INVISIBLE);
         String[] values = new String[list.size()];
         /*values= new String[] { "Meftah : Salut !", "Ada Hanifi : Take care Bro !", "Bourabaa redaa : where are you ? are you here",
@@ -99,9 +99,7 @@ public class Messages extends Fragment {
         //GetUtilisateur user = new GetUtilisateur(infos,getApplicationContext());
         //user.execute();
 
-        NotifAdapt adapter = new NotifAdapt(v.getContext(),values);
-       /* if(l==null) Log.w("milad", "liste null");
-        if(adapter==null) Log.w("milad", "adapter null");getActivity().getBaseContext()*/
+        NotifAdapt adapter = new NotifAdapt(v.getContext(), values);
         l.setAdapter(adapter);
         l.setClickable(true);
         return v;

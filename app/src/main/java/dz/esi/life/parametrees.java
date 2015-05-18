@@ -1,19 +1,13 @@
 package dz.esi.life;
 
 import android.app.Activity;
-import android.app.ListActivity;
+import android.app.Fragment;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.os.Bundle;
-import android.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 
 /**
@@ -36,6 +30,10 @@ public class parametrees extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    public parametrees() {
+        // Required empty public constructor
+    }
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -54,10 +52,6 @@ public class parametrees extends Fragment {
         return fragment;
     }
 
-    public parametrees() {
-        // Required empty public constructor
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,13 +65,11 @@ public class parametrees extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v  =inflater.inflate(R.layout.fragment_parametrees, container, false);
-        ListView l=(ListView)v.findViewById(R.id.listviewpara);
-        String[] values = new String[] { "Log out", "", "WindowsMobile",
-                "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-                "Linux", "OS/2" };
+        View v = inflater.inflate(R.layout.fragment_parametrees, container, false);
+        ListView l = (ListView) v.findViewById(R.id.listviewpara);
+        String[] values = new String[]{"Log out", "Personaliser"};
 
-       return v;
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -103,6 +95,7 @@ public class parametrees extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
 
     /**
      * This interface must be implemented by activities that contain this

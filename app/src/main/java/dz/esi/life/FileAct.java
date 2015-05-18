@@ -1,18 +1,20 @@
 package dz.esi.life;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
-import android.os.Bundle;
+import android.widget.TextView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import java.util.List;
+
+import dz.esi.life.Model.Contenu;
 
 
 /**
@@ -35,6 +37,10 @@ public class FileAct extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    public FileAct() {
+        // Required empty public constructor
+    }
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -53,10 +59,6 @@ public class FileAct extends Fragment {
         return fragment;
     }
 
-    public FileAct() {
-        // Required empty public constructor
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,21 +73,83 @@ public class FileAct extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
     View v=  inflater.inflate(R.layout.fragment_file, container, false);
+
+        /**modification**/
+        ImageView statut = (ImageView) v.findViewById(R.id.statut);
+        ImageView ajouterimg = (ImageView) v.findViewById(R.id.ajouterimg);
+        ImageView cam = (ImageView) v.findViewById(R.id.cam);
+        ImageView video = (ImageView) v.findViewById(R.id.video);
+        Button pub = (Button) v.findViewById(R.id.buttonPublier);
+        final TextView texte = (TextView) v.findViewById(R.id.publication);
+
+        /*Publier Statut file act*/
+        statut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+          /*Publier Img file act*/
+        ajouterimg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+         /*Publier video file act*/
+        video.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+         /*Publier Imgcam file act*/
+        cam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        /*bouton publier*/
+        pub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /***********************************/
+                Contenu contenu = new Contenu();
+                contenu.name = texte.getText().toString();
+                contenu.post();
+                /*********************************/
+            }
+        });
+        List<Contenu> l = Contenu.get();
         ListView list = (ListView)v.findViewById(R.id.listviewfile);
-        String[] values = new String[] { "                                ", "", "",
+
+        String[] values = new String[l.size()];/* { "                                ", "", "",
                 "", " ", "", "", "",
-                "", "" };
+                "", "" };*/
         Integer [] tab = new Integer[]{
-                R.drawable.guy, R.drawable.place1, R.drawable.lock, R.drawable.place2, R.drawable.place3
+                R.drawable.place4, R.drawable.place3, R.drawable.place1, R.drawable.place2, R.drawable.photo
                 , R.drawable.place4, R.drawable.place5, R.drawable.android, R.drawable.photo, R.drawable.ic_launcher
 
         };
+
+        for (int i = 0; i < l.size(); i++) {
+            Contenu c = l.get(i);
+            if (c.texte == null) c.texte = c.name;
+            values[i] = c.user.displayName + " : " + c.texte + ", le: " + c.created;
+        }
 
         //Infos User
 
         //GetUtilisateur user = new GetUtilisateur(infos,getApplicationContext());
         //user.execute();
-
+       /* NotifAdapt adapter = new NotifAdapt(v.getContext(),values);
+        l.setAdapter(adapter);
+        l.setClickable(true);*/
         FileAdapt adapter = new
                 FileAdapt(v.getContext(),values,tab);
         list.addHeaderView(new View(getActivity()));

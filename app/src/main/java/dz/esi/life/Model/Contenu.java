@@ -31,6 +31,28 @@ public class Contenu extends CRUD {
     public List<Categorie> categories;
     public List<Affectation> affectations;
 
+    public static List<Contenu> get() {
+        AsyncTask task = new AsyncTask() {
+            @Override
+            protected Object doInBackground(Object[] params) {
+                try {
+                    return RestClient.get().contenu();
+                } catch (Exception e) {
+                    Log.e("exception", e.getMessage());
+                    return null;
+                }
+            }
+        };
+        try {
+            return (List<Contenu>) task.execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     @Override
     public CRUD post() {
         AsyncTask task = new AsyncTask() {
@@ -61,28 +83,6 @@ public class Contenu extends CRUD {
 
     @Override
     public CRUD delete() {
-        return null;
-    }
-
-    public static List<Contenu> get() {
-        AsyncTask task = new AsyncTask() {
-            @Override
-            protected Object doInBackground(Object[] params) {
-                try {
-                    return RestClient.get().contenu();
-                } catch (Exception e) {
-                    Log.e("exception", e.getMessage());
-                    return null;
-                }
-            }
-        };
-        try {
-            return (List<Contenu>) task.execute().get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
         return null;
     }
 }
